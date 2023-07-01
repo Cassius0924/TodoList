@@ -1,0 +1,146 @@
+.cardList {
+    padding: 0;
+}
+
+.cardList li {
+    display: flex;
+    height: 50px;
+    padding-block: 20px;
+    padding-right: 20px;
+    margin-block: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    /*background-image: linear-gradient(135deg,#ECE9E6,#ffffff);*/
+    /*background-image: linear-gradient(135deg,#8e9eab,#eef2f3);*/
+    /*background-image: linear-gradient(135deg,#2980b9,#2c3e50);*/
+    /*background-image: linear-gradient(135deg,#ADA996,#F2F2F2,#DBDBDB,#EAEAEA);*/
+    transition: transform 1s, opacity 1s, width 1s, height 1s;
+}
+
+.cardListItemLeft {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todoCheckBox {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.cardListItemContent {
+    width: 400px;
+}
+
+.cardListItemContent .todo-span{
+    font-weight: bolder;
+}
+
+.cardListItemMore {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardModeDiv {
+    flex-direction: column;
+    position: relative;
+    z-index: 3;
+    overflow: visible;
+}
+
+/*悬浮到CardModeDiv左边*/
+.hoverSidebar {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    height: 100%;
+    width: 300px;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: end;
+    cursor: pointer;
+    left: -350px;
+    top: -5px
+}
+
+.hoverSidebar label {
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+.hoverSidebar:hover label {
+    color: black;
+    display: flex;
+}
+
+.hoverSidebar button {
+    width: 50px;
+    height: 50px;
+    margin-block: 20px;
+    border-radius: 10%;
+    margin-left: 5px;
+    border: 0;
+    background-color: #ECE9E6;
+    /*background-image: linear-gradient(135deg,#ECE9E6,#ffffff);*/
+    box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.hoverSidebar button i {
+    font-size: 20px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    width: 121px;
+    border-bottom: #002FA7 3px solid;
+}
+
+.addCard {
+    width: 800px;
+    height: 250px;
+    padding: 30px;
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    bottom: -400px;
+    transition: bottom 0.5s;
+}
+
+.cardModeDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.addTitle {
+    margin-bottom: 50px;
+    width: 180px;
+}
+
+.closeDiv {
+    position: absolute;
+    right: 32px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.todoList {
+    max-height: 100%;
+}
+
+

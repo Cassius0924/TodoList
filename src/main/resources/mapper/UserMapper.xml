@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cassius0924.hellospringboot.dao.UserDao">
+    <!--    查找所有-->
+<!--    <select id="selectAll" resultType="com.cassius0924.hellospringboot.model.User">-->
+<!--        select *-->
+<!--        from tb_user;-->
+<!--    </select>-->
+<!--    &lt;!&ndash;    通过名字查找&ndash;&gt;-->
+<!--    <select id="selectByName" parameterType="String" resultType="com.cassius0924.hellospringboot.model.User">-->
+<!--        select *-->
+<!--        from tb_user-->
+<!--        where name = #{name};-->
+<!--    </select>-->
+    <!--    插入-->
+    <insert id="insertUser" parameterType="com.cassius0924.hellospringboot.model.User">
+        insert into tb_user(id, username, password)
+        values (#{id}, #{username}, #{password});
+    </insert>
+    <!--    修改-->
+    <update id="updateUser" parameterType="com.cassius0924.hellospringboot.model.User">
+        update tb_user
+        set id       = #{id},
+            username = #{username},
+            password = #{password},
+    </update>
+    <!--    删除通过Id-->
+    <delete id="deleteUserById" parameterType="int">
+        delete
+        from tb_user
+        where id = #{id};
+    </delete>
+
+    <select id="selectPasswordByUsername" resultType="String">
+        select password
+        from tb_user
+        where username = #{username};
+    </select>
+
+    <select id="selectIdByUsername" resultType="int">
+        select id
+        from tb_user
+        where username = #{username};
+    </select>
+</mapper>

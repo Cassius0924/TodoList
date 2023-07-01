@@ -1,0 +1,469 @@
+/*==========DayMode===========*/
+:root {
+    --color-background: #fcfcfc;
+
+    --font-label-small: 12px;
+    --font-label-normal: 15px;
+    --font-label-large: 16px;
+    --color-label: rgba(128, 128, 128, 0.8);
+
+    --color-button-safe: #006400FF;
+    --color-button-safe-alt: rgba(0, 100, 0, 0.93);
+    --color-button-dangerous: #640000;
+    --color-button-dangerous-alt: rgba(100, 0, 0, 0.93);
+    --color-button-warning: #787800;
+    --color-button-warning-alt: rgba(120, 120, 0, 0.93);
+
+    --color-success: #00a000;
+    --color-error: #a00000;
+    --color-warning: #a0a000;
+
+    --color-sidebar-background: #F5F5F5FF;
+    --color-sidebar-background-dark: #212121;
+
+    --color-menu-alt: #e8eaed;
+    --color-menu-focus: #e8f0fe;
+    --color-menu-focus-dark: #8AB4F8FF;
+
+    --color-search: #e8eaed;
+}
+
+body {
+    font-family: 'Fira Sans', 'Droid Sans', 'Helvetica Neue', serif;
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/*==========DarkMode===========*/
+@media (prefers-color-scheme: dark) {
+    :root {
+        /*老师我没时间写了...*/
+    }
+}
+
+/*==========CardModeDiv==========*/
+.cardModeDiv {
+    display: flex;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    background-image: linear-gradient(135deg,#ECE9E6,#ffffff);
+    /*background-image: linear-gradient(135deg,#8e9eab,#eef2f3);*/
+    /*background-image: linear-gradient(135deg,#2980b9,#2c3e50);*/
+    /*background-image: linear-gradient(135deg,#ADA996,#F2F2F2,#DBDBDB,#EAEAEA);*/
+    transition: transform 1s ,opacity 1s,width 1s ,height 1s;
+}
+
+
+/*==========ButtonStyle01==========*/
+.buttonI01 {
+    display: inline-block;
+    border: none;
+    background-color: white;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 1rem 2.25rem 1rem 1.75rem;
+    border-radius: 7px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.buttonI01:last-of-type {
+    margin-right: 0;
+}
+
+.buttonI01 > i {
+    position: absolute;
+    margin-left: 3px;
+    transform: translateY(2px);
+}
+
+.buttonI01:disabled {
+    opacity: 0.6;
+}
+
+.buttonSafe{
+    background-color: var(--color-button-safe);
+}
+
+.buttonSafe:not(:disabled):hover {
+    background-color: var(--color-button-safe-alt);
+}
+
+.buttonWarning {
+    background-color: var(--color-button-warning);
+}
+
+.buttonWarning:hover {
+    background-color: var(--color-button-warning-alt);
+}
+
+.buttonDangerous {
+    background-color: var(--color-button-dangerous);
+}
+
+.buttonDangerous:hover {
+    background-color: var(--color-button-dangerous-alt);
+}
+
+/*==========Button$Icon:hover>ObliqueMove==========*/
+.buttonIconObliqueMove > i {
+    transition: 0.3s
+}
+
+.buttonIconObliqueMove:hover > i {
+    transform: translateX(2px);
+}
+
+
+/*==========Button$Icon:hover>Move==========*/
+.buttonIconMove > i {
+    transition: 0.3s
+}
+
+.buttonIconMove:not(:disabled):hover > i {
+    transform: translate(3px,2px);
+}
+
+
+/*==========Button$Icon:hover>Spin==========*/
+.buttonIconSpin > i {
+    transition: 0.5s
+}
+
+.buttonIconSpin:hover > i {
+    transform: translateY(2px) rotate(360deg);
+}
+
+
+/*==========InputStyle==========*/
+.inputShrinkDiv {
+    border-bottom: 1px solid black;
+    margin-bottom: 35px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.inputShrinkDiv > label {
+    position: relative;
+    top: -5px;
+    color: var(--color-label);
+    font-size: var(--font-label-normal);
+    line-height: 20px;
+    transition: 0.4s;
+}
+
+.inputShrinkDiv:hover {
+    border-bottom: 2px #01847F solid;
+}
+
+.inputShrinkDiv > input:focus + label,
+.inputShrinkDiv > textarea:focus + label {
+    top: -28px;
+    left: 0;
+    font-size: var(--font-label-small);
+}
+
+.inputShrinkDiv > input:not(:focus):not(:placeholder-shown) + label,
+.inputShrinkDiv > textarea:not(:focus):not(:placeholder-shown) + label {
+    top: -28px;
+    font-size: var(--font-label-small);
+}
+
+.inputShrinkDiv > input, .inputShrinkDiv > textarea {
+    width: 100%;
+    top: -2px;
+    left: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    position: absolute;
+    background: none;
+    z-index: 1;
+}
+/*==========SliderSwitch==========*/
+/*难以置信，我手撕了一个纯CSS的滑动开关，不愧是我！*/
+.sliderSwitch{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.sliderSwitch::before{
+    content: "";
+    position: absolute;
+    left: -37px;
+    width: 50px;
+    height: 25px;
+    background-color: lightgrey;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.sliderSwitch::after {
+    content: "";
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    transform: translateX(-24px);
+    transition: 0.3s;
+}
+
+.sliderSwitch:checked::before{
+    background-color: var(--color-success);
+}
+
+.sliderSwitch:checked::after {
+    transform: translateX(0);
+}
+
+/*==========RadioStyle and CheckStyle and ColorPickerStyle==========*/
+.radioDiv, .checkDiv, .colorPickerDiv {
+    position: relative;
+    margin-bottom: 35px;
+    transition: 0.3s;
+}
+
+.radioDiv > input, .checkDiv > input, .colorPickerDiv {
+    position: relative;
+    top: -2px;
+}
+
+.radioDiv > label, .checkDiv > label, .colorPickerDiv > label {
+    position: relative;
+    display: inline-flex;
+    top: -3px;
+    color: var(--color-label);
+    line-height: 20px;
+    transition: 0.4s;
+}
+
+.colorPickerDiv > label {
+    color: black;
+}
+
+.radioDiv > input:checked + label,
+.checkDiv > input:checked + label {
+    color: black;
+}
+
+/*==========RangeStyle==========*/
+.rangeDiv {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.rangeDiv > div {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.rangeDiv input {
+    width: 100%;
+}
+
+.rangeDiv > div span {
+    padding-inline: 10px;
+    border-radius: 500px;
+    border: 1px rgba(0, 0, 0, 0.5) solid;
+    margin-left: 7px;;
+    font-size: 13px;
+}
+
+/*==========TimeInputDiv==========*/
+.timeInputDiv input{
+    outline: none;
+    padding: 2px 2px 2px 8px;
+    border: 1px black solid;
+    border-radius: 30px;
+}
+
+/*=========SelectDiv==========*/
+.selectDiv{
+    /*appearance: none;*/
+    border: 1px black solid;
+    border-radius: 20px;
+    padding-inline: 3px;
+}
+
+/*==========ButtonDiv==========*/
+.buttonMergeDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*==========InputMerge==========*/
+.inputMergeDiv {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.inputMergeDiv div {
+    width: 100%;
+    margin-right: 10px;
+}
+
+.inputMergeDiv div:last-of-type {
+    margin-right: 0;
+}
+
+.inputMergeDiv > label {
+    position: relative;
+    color: var(--color-label);
+    font-size: var(--font-label-normal);
+    top: -5px;
+    width: 50%;
+}
+
+.inputMergeDiv > div:last-of-type[class='checkDiv'] {
+    width: 100px;
+    text-align: right;
+}
+
+/*==========ColorMessage==========*/
+.colorMessage {
+    position: absolute;
+    border-radius: 20px;
+    margin-top: 70px;
+    padding: 1px 13px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -15px);
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    box-shadow: 0 4px 6px 3px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: 0.4s;
+}
+
+/*==========SearchInput==========*/
+.searchDiv {
+    border-radius: 50px;
+    background-color: var(--color-search);
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.searchDiv i:first-of-type{
+    color: grey;
+    margin-inline: 13px;
+    cursor: pointer;
+}
+
+.searchDiv i:last-of-type{
+    color: grey;
+    margin-right: 9px;
+    padding-inline: 4px;
+    cursor: pointer;
+    border-radius: 50px;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.searchDiv input:not(:placeholder-shown) ~ i{
+    visibility: visible;
+}
+
+.searchDiv i:last-of-type:hover{
+    background-color: #bbbbbb;
+}
+
+.searchDiv input {
+    width: calc(100% - 50px);
+    height:  20px;
+    background: none;
+    background-color: inherit;
+    outline: none;
+    border: none;
+}
+
+/*==========Menu==========*/
+.menuDiv {
+    box-shadow: none;
+    top: 45px;
+    margin-inline: 0 40px;
+    position: relative;
+    padding: 0;
+    background-image: linear-gradient(0, white, white ) !important;
+}
+
+.menuDiv ul{
+    list-style: none;
+    padding: 0;
+}
+
+.menuDiv ul li {
+    padding: 20px 60px ;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    display: flex;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.menuDiv ul li:hover {
+    background-color: var(--color-menu-alt);
+}
+
+.menuDiv ul li:focus {
+    background-color: var(--color-menu-focus);
+}
+
+.menuDiv ~ div {
+    width: calc(100% - 326px);
+    top: 45px;
+    margin-inline: 0 40px;
+    position: relative;
+    padding: 0;
+}
+
+/*==========HideScrollbar==========*/
+::-webkit-scrollbar {
+    width: 0;
+}
+
+/*==========BackIcon==========*/
+.backIcon {
+    left: 40px;
+    color: black;
+}
+
+.contentDiv {
+    position: absolute;
+    height: 100%;
+    width: calc(100%);
+    background-color: white;
+    min-width: 350px;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    overflow-x: hidden;
+}
+
+.contentDiv.close{
+    width: 100%;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cassius0924.hellospringboot.dao.TodoDao">
+    <resultMap id="TodoResultMap" type="com.cassius0924.hellospringboot.model.Todo">
+        <result property="createdTime" column="created_time" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <select id="selectAll" parameterType="int" resultType="com.cassius0924.hellospringboot.model.Todo">
+        select *
+        from tb_todo
+        where user_id = #{userId};
+    </select>
+
+    <select id="selectById" parameterType="int" resultType="com.cassius0924.hellospringboot.model.Todo">
+        select *
+        from tb_todo
+        where id = #{id};
+    </select>
+
+    <select id="selectByTitle" parameterType="String" resultType="com.cassius0924.hellospringboot.model.Todo">
+        select *
+        from tb_todo
+        where title like CONCAT('%', #{title}, '%') and user_id = #{userId};
+    </select>
+
+    <select id="selectByChecked" resultType="com.cassius0924.hellospringboot.model.Todo">
+        select *
+        from tb_todo
+        where checked = #{checked} and user_id = #{userId};
+    </select>
+
+    <insert id="insertTodo" parameterType="com.cassius0924.hellospringboot.model.Todo">
+        insert into tb_todo (id, title, detail, time, checked, url, created_time, user_id)
+        values (#{id}, #{title}, #{detail}, #{time}, #{checked}, #{url}, #{createdTime}, #{userId});
+    </insert>
+
+    <update id="updateTodo" parameterType="com.cassius0924.hellospringboot.model.Todo">
+        update tb_todo
+        set title        = #{title},
+            detail       = #{detail},
+            time         = #{time},
+            checked      = #{checked},
+            url          = #{url}
+        where id = #{id};
+    </update>
+
+    <update id="updateTodoChecked" parameterType="com.cassius0924.hellospringboot.model.Todo">
+        update tb_todo
+        set checked = NOT checked
+        where id = #{id};
+    </update>
+
+    <delete id="deleteTodoById" parameterType="int">
+        delete
+        from tb_todo
+        where id = #{id};
+    </delete>
+
+
+</mapper>
