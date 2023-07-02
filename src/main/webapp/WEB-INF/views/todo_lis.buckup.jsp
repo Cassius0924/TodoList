@@ -52,7 +52,6 @@
                 </tr>
             </c:forEach>
 
-            <%--添加--%>
         </table>
         <form action="/todo/add" method="post">
             <input type="text" name="title" placeholder="Title">
@@ -80,7 +79,6 @@
         <button onclick="window.location.href='/todo/find/check/1'">显示已完成事项</button>
         <button onclick="window.location.href='/todo'">显示所有事项</button>
     </div>
-
 
 </div>
 </body>

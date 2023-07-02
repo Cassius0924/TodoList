@@ -25,10 +25,6 @@
                 <input placeholder=" " name="username">
                 <label>用户名</label>
             </div>
-<%--            <div class="inputShrinkDiv">--%>
-<%--                <input placeholder=" " name="account">--%>
-<%--                <label>手机号或邮箱</label>--%>
-<%--            </div>--%>
             <div class="inputShrinkDiv">
                 <input placeholder=" " name="password">
                 <label>密码</label>

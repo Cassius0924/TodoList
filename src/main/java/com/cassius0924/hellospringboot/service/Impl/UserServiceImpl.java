@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String getUsernameById(Integer id) {
+        return userDao.selectUsernameById(id);
+    }
+
+    @Override
     public boolean login(String username, String password) {
         if (password.equals(userDao.selectPasswordByUsername(username))) {
             return true;
@@ -52,5 +57,10 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void editPassword(Integer id, String password) {
+        userDao.updatePassword(id, password);
     }
 }

@@ -42,9 +42,9 @@ public class TodoController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("todo_list");
         mav.addObject("todos", todoService.getAll(userId));
+        mav.addObject("username", userService.getUsernameById(userId));
         return mav;
     }
-
 
     @RequestMapping(value = "/todo/add", method = RequestMethod.POST)
     public ModelAndView addTodo(@RequestParam("title") String title,
@@ -101,6 +101,7 @@ public class TodoController {
         mav.setViewName("todo_list");
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         mav.addObject("todos", todoService.getByChecked(status == 1, userId));
+        mav.addObject("username", userService.getUsernameById(userId));
         return mav;
     }
 
@@ -110,6 +111,7 @@ public class TodoController {
         mav.setViewName("todo_list");
         Integer userId = (Integer) request.getSession().getAttribute("userId");
         mav.addObject("todos", todoService.getByTitle(title, userId));
+        mav.addObject("username", userService.getUsernameById(userId));
         return mav;
     }
 }

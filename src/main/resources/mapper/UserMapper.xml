@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cassius0924.hellospringboot.dao.UserDao">
-    <!--    查找所有-->
-<!--    <select id="selectAll" resultType="com.cassius0924.hellospringboot.model.User">-->
-<!--        select *-->
-<!--        from tb_user;-->
-<!--    </select>-->
-<!--    &lt;!&ndash;    通过名字查找&ndash;&gt;-->
-<!--    <select id="selectByName" parameterType="String" resultType="com.cassius0924.hellospringboot.model.User">-->
-<!--        select *-->
-<!--        from tb_user-->
-<!--        where name = #{name};-->
-<!--    </select>-->
-    <!--    插入-->
     <insert id="insertUser" parameterType="com.cassius0924.hellospringboot.model.User">
         insert into tb_user(id, username, password)
         values (#{id}, #{username}, #{password});
@@ -43,4 +31,17 @@
         from tb_user
         where username = #{username};
     </select>
+
+    <select id="selectUsernameById" resultType="String">
+        select username
+        from tb_user
+        where id = #{id};
+    </select>
+    
+    <select id="updatePassword" resultType="String">
+        update tb_user
+        set password = #{password}
+        where id = #{id}
+    </select>
+
 </mapper>

@@ -16,5 +16,7 @@ public interface UserService {
     public void removeById(Integer id);
     public boolean login(String username, String password);
     public Integer getIdByUsername(String username);
+    public String getUsernameById(Integer id);
     public boolean register(String username, String password);
+    public void editPassword(Integer id, String password);
 }

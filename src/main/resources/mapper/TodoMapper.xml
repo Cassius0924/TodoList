@@ -21,7 +21,7 @@
         where id = #{id};
     </select>
 
-    <select id="selectByTitle" parameterType="String" resultType="com.cassius0924.hellospringboot.model.Todo">
+    <select id="selectByTitle" resultType="com.cassius0924.hellospringboot.model.Todo">
         select *
         from tb_todo
         where title like CONCAT('%', #{title}, '%') and user_id = #{userId};

@@ -11,10 +11,6 @@
     border-radius: 8px;
     box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
-    /*background-image: linear-gradient(135deg,#ECE9E6,#ffffff);*/
-    /*background-image: linear-gradient(135deg,#8e9eab,#eef2f3);*/
-    /*background-image: linear-gradient(135deg,#2980b9,#2c3e50);*/
-    /*background-image: linear-gradient(135deg,#ADA996,#F2F2F2,#DBDBDB,#EAEAEA);*/
     transition: transform 1s, opacity 1s, width 1s, height 1s;
 }
 
@@ -36,19 +32,11 @@
 }
 
 .cardListItemContent {
-    width: 400px;
+    width: 380px;
 }
 
 .cardListItemContent .todo-span{
     font-weight: bolder;
-}
-
-.cardListItemMore {
-    width: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .cardModeDiv {
@@ -68,7 +56,6 @@
     border-radius: 8px;
     justify-content: center;
     align-items: end;
-    cursor: pointer;
     left: -350px;
     top: -5px
 }
@@ -78,6 +65,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     transition: 0.2s;
     font-weight: bold;
 }
@@ -111,7 +99,7 @@
     border-bottom: #002FA7 3px solid;
 }
 
-.addCard {
+.popCard {
     width: 800px;
     height: 250px;
     padding: 30px;
@@ -119,7 +107,7 @@
     display: flex;
     z-index: 100;
     bottom: -400px;
-    transition: bottom 0.5s;
+    transition: bottom 0.5s, top 0.5s;
 }
 
 .cardModeDiv {
@@ -127,20 +115,73 @@
     flex-direction: column;
 }
 
-.addTitle {
+
+.popTitle {
     margin-bottom: 50px;
     width: 180px;
 }
 
+.searchTitle {
+    margin-bottom: 20px;
+}
+
+.searchCard .searchDiv {
+    box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);
+}
+
 .closeDiv {
     position: absolute;
+    top: 35px;
     right: 32px;
     font-size: 25px;
     cursor: pointer;
 }
 
-.todoList {
+.todoListDiv {
+    position: relative;
     max-height: 100%;
+    overflow: visible;
+    min-width: 690px;
 }
 
+.todoList {
+    max-height: 80%;
+    overflow-y: scroll;
+}
 
+.userCard {
+    bottom: -400px;
+    width: 300px;
+    height: auto;
+}
+
+.searchCard{
+    bottom: 0;
+    height: 100px;
+    top: -400px;
+}
+
+.todoTime {
+    float: right;
+}
+
+.cardListItemMore {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardListItemMore button {
+    width: 50px;
+    height: 50px;
+    margin-block: 20px;
+    border-radius: 10%;
+    margin-left: 5px;
+    border: 0;
+    /*background-color: #ECE9E6;*/
+    background-color: #ECE9E6;
+    /*background-image: linear-gradient(135deg,#ECE9E6,#ffffff);*/
+    /*box-shadow: 0 3px 30px 0 rgba(0, 0, 0, 0.15);*/
+    cursor: pointer;
+}

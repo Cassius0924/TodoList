@@ -15,55 +15,65 @@
     <meta charset="UTF-8">
     <title>待办清单</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/todo_list.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="./assets/Icon/user-fill.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../asset/css/base.css" type="text/css">
-    <link rel="stylesheet" href="../../asset/css/todo_list.css" type="text/css">
+    <link rel="stylesheet" href="/asset/css/base.css" type="text/css">
+    <link rel="stylesheet" href="/asset/css/todo_list.css" type="text/css">
 </head>
 <body>
 <div class="contentDiv">
-    <div class="cardModeDiv todoList">
-        <div class="title">
-            待办清单
+    <div class="todoListDiv">
+        <div class="cardModeDiv todoList">
+            <div class="title">
+                待办清单
+            </div>
+            <ul class="cardList">
+                <c:if test="${todos == null || todos.size() == 0}">
+                    <h2>暂无待办事项</h2>
+                </c:if>
+                <c:if test="${todos != null && todos.size() > 0}">
+                    <c:forEach var="todo" items="${todos}">
+                        <li>
+                            <div class="cardListItemLeft">
+                                <input class="todoCheckBox" type="checkbox"
+                                       onclick="window.location.href='/todo/check/${todo.getId()}'" ${todo.isChecked() ? 'checked' : ''}>
+                            </div>
+                            <div class="cardListItemContent">
+                                <span class="todo-span">${todo.getTitle()}
+                                    <c:if test="${todo.getUrl() != ''}">
+                                        <a href="${todo.getUrl()}" target="_blank">
+                                            <i class="ri-external-link-line"></i>
+                                        </a>
+                                    </c:if>
+                                </span>
+<%--                        格式化time为 07-02 21:50 --%>
+                                <span class="todoTime">${todo.getTime().toString().substring(5, 16)}</span>
+                                <div>${todo.getDetail()}</div>
+                            </div>
+                            <div class="cardListItemMore">
+                                <button onclick="popEditCard();edit_todo(${todo.getId()})">
+                                    <i class="ri-edit-line"></i>
+                                </button>
+                                <button onclick="window.location.href='/todo/remove/${todo.getId()}'">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </c:if>
+            </ul>
         </div>
-        <ul class="cardList">
-            <c:forEach var="todo" items="${todos}">
-                <li>
-                    <div class="cardListItemLeft">
-                        <input class="todoCheckBox" type="checkbox"
-                               onclick="window.location.href='/todo/check/${todo.getId()}'" ${todo.isChecked() ? 'checked' : ''}>
-                    </div>
-                    <div class="cardListItemContent">
-                        <span class="todo-span">${todo.getTitle()}
-                            <c:if test="${todo.getUrl() != ''}">
-                                <a href="${todo.getUrl()}" target="_blank">
-                                    <i class="ri-external-link-line"></i>
-                                </a>
-                            </c:if>
-                        </span>
-                        <span>${todo.getTime()}</span>
-                        <div>${todo.getDetail()}
-                        </div>
-                    </div>
-                    <div class="cardListItemMore">
-                            <%--                        edit--%>
-                        <button onclick="edit_todo(${todo.getId()})">
-                            <i class="ri-edit-line"></i>
-                        </button>
-                            <%--                        remove--%>
-                        <button onclick="window.location.href='/todo/remove/${todo.getId()}'">
-                            <i class="ri-delete-bin-line"></i>
-                        </button>
-                    </div>
-                </li>
-            </c:forEach>
-        </ul>
 
         <div class="hoverSidebar">
             <label>
+                ${username}
+                <button onclick="popUserCard()" style="font-size: 25px; font-weight: normal">
+                    ${username.substring(0, 1)}
+                </button>
+            </label>
+            <label>
                 搜索待办事项
-                <button onclick="">
+                <button onclick="popSearchCard()">
                     <i class="ri-search-line"></i>
                 </button>
             </label>
@@ -92,27 +102,30 @@
                 </button>
             </label>
         </div>
+    </div>
 
-
-        <div style="display: none">
-            <form class="edit-table" action="/todo/edit" method="post">
-                <input type="hidden" name="id">
-                <input type="text" name="title" placeholder="Title">
-                <input type="text" name="detail" placeholder="Detail">
-                <input type="date" name="date" placeholder="Date">
-                <input type="time" name="time" placeholder="Time">
-                <input type="text" name="url" placeholder="URL">
-                <input type="reset" value="重置">
-                <input type="submit" value="确认修改">
-            </form>
+    <div class="cardModeDiv popCard searchCard">
+        <div class="closeDiv" onclick="closeSearchCard()">
+            <i class="ri-close-line"></i>
+        </div>
+        <div class="title popTitle searchTitle">
+            搜索待办事项
+        </div>
+        <div>
+            <div class="searchDiv">
+                <i class="ri-search-line"
+                   onclick="window.location.href='/todo/find/title/'+document.querySelector('.searchCard .searchDiv input').value"></i>
+                <input placeholder="搜索待办事项">
+                <i class="ri-close-line"></i>
+            </div>
         </div>
     </div>
 
-    <div class="cardModeDiv addCard">
+    <div class="cardModeDiv popCard addCard">
         <div class="closeDiv" onclick="closeAddCard()">
             <i class="ri-close-line"></i>
         </div>
-        <div class="title addTitle">
+        <div class="title popTitle">
             添加待办事项
         </div>
         <form class="loginForm" action="/todo/add" method="post">
@@ -151,14 +164,87 @@
                 </button>
             </div>
         </form>
-        <%--                <input type="text" name="title" placeholder="Title">--%>
-        <%--                <input type="text" name="detail" placeholder="Detail">--%>
-        <%--                <input type="date" name="date" placeholder="Date">--%>
-        <%--                <input type="time" name="time" placeholder="Time">--%>
-        <%--                <input type="text" name="url" placeholder="URL">--%>
-        <%--                <input type="reset" value="Reset">--%>
-        <%--                <input type="submit" value="Add">--%>
     </div>
+
+    <div class="cardModeDiv popCard editCard">
+        <div class="closeDiv" onclick="closeEditCard()">
+            <i class="ri-close-line"></i>
+        </div>
+        <div class="title popTitle">
+            修改待办事项
+        </div>
+        <form class="loginForm editForm" action="/todo/edit" method="post">
+            <input placeholder=" " name="id" type="hidden">
+            <div class="inputMergeDiv">
+                <div class="inputShrinkDiv">
+                    <input placeholder=" " name="title">
+                    <label>标题</label>
+                </div>
+                <div class="inputShrinkDiv">
+                    <input placeholder=" " name="detail">
+                    <label>描述</label>
+                </div>
+            </div>
+            <div class="inputMergeDiv">
+                <div class="inputShrinkDiv">
+                    <input placeholder=" " name="url">
+                    <label>链接</label>
+                </div>
+                <div class="inputShrinkDiv">
+                    <input type="date" placeholder=" " name="date">
+                    <label>日期</label>
+                </div>
+                <div class="inputShrinkDiv">
+                    <input type="time" placeholder=" " name="time">
+                    <label>时间</label>
+                </div>
+            </div>
+            <div class="buttonMergeDiv">
+                <button class="buttonI01 buttonWarning buttonIconSpin" type="reset">
+                    重置
+                    <i class="ri-restart-line"></i>
+                </button>
+                <button class="buttonI01 buttonSafe buttonIconObliqueMove" type="submit">
+                    确认修改
+                    <i class="ri-arrow-right-up-line"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="cardModeDiv popCard userCard">
+        <div class="closeDiv" onclick="closeUserCard()">
+            <i class="ri-close-line"></i>
+        </div>
+        <div class="title popTitle">
+            修改用户信息
+        </div>
+        <form class="loginForm editForm" action="/user/edit" method="post">
+            <div class="inputShrinkDiv">
+                <input placeholder=" " name="username" readonly value="${username}">
+                <label>用户名</label>
+            </div>
+            <div class="inputShrinkDiv">
+                <input placeholder=" " name="password">
+                <label>密码</label>
+            </div>
+            <div class="inputShrinkDiv">
+                <input placeholder=" " name="confirm_password">
+                <label>确认密码</label>
+            </div>
+            <div class="buttonMergeDiv">
+                <button class="buttonI01 buttonDangerous buttonIconObliqueMove" onclick="logout()" type="button">
+                    退出登录
+                    <i class="ri-login-box-line"></i>
+                </button>
+                <button class="buttonI01 buttonSafe buttonIconObliqueMove" type="submit">
+                    确认修改
+                    <i class="ri-arrow-right-up-line"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
 
 </div>
 </body>
@@ -178,15 +264,14 @@
     </c:forEach>
 
     function edit_todo(id) {
-        // 将edit-table内容填充
         let todo = get_todo_by_id(id);
         let dateTimeParts = todo.time.split(" ");
-        document.querySelector('.edit-table input[name="id"]').value = todo.id;
-        document.querySelector('.edit-table input[name="title"]').value = todo.title;
-        document.querySelector('.edit-table input[name="detail"]').value = todo.detail;
-        document.querySelector('.edit-table input[name="date"]').value = dateTimeParts[0];
-        document.querySelector('.edit-table input[name="time"]').value = dateTimeParts[1];
-        document.querySelector('.edit-table input[name="url"]').value = todo.url;
+        document.querySelector('.editForm input[name="id"]').value = todo.id;
+        document.querySelector('.editForm input[name="title"]').value = todo.title;
+        document.querySelector('.editForm input[name="detail"]').value = todo.detail;
+        document.querySelector('.editForm input[name="date"]').value = dateTimeParts[0];
+        document.querySelector('.editForm input[name="time"]').value = dateTimeParts[1];
+        document.querySelector('.editForm input[name="url"]').value = todo.url;
     }
 
     function get_todo_by_id(id) {
@@ -203,6 +288,34 @@
 
     function closeAddCard() {
         document.querySelector('.addCard').style.bottom = "-400px"
+    }
+
+    function popEditCard() {
+        document.querySelector('.editCard').style.bottom = "0px"
+    }
+
+    function closeEditCard() {
+        document.querySelector('.editCard').style.bottom = "-400px"
+    }
+
+    function popSearchCard() {
+        document.querySelector('.searchCard').style.top = "0px"
+    }
+
+    function closeSearchCard() {
+        document.querySelector('.searchCard').style.top = "-400px"
+    }
+
+    function popUserCard() {
+        document.querySelector('.userCard').style.bottom = "calc(50% - 180px)"
+    }
+
+    function closeUserCard() {
+        document.querySelector('.userCard').style.bottom = "-400px"
+    }
+
+    function logout() {
+        window.location.href = "/";
     }
 
 </script>

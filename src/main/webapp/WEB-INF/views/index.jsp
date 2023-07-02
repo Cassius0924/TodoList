@@ -17,7 +17,7 @@
 <body>
 <div class="contentDiv">
     <div class="cardModeDiv">
-<%--        <h1>基于SpringBoot和MyBatis<br>的待办清单系统</h1>--%>
+<%--        <h1>基于SpringBoot和MyBatis的待办清单系统</h1>--%>
         <div class="title">
             登录
         </div>

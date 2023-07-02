@@ -1,5 +1,6 @@
 package com.cassius0924.hellospringboot.controller;
 
+import com.cassius0924.hellospringboot.model.User;
 import com.cassius0924.hellospringboot.service.TodoService;
 import com.cassius0924.hellospringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,6 @@ public class UserController {
     @Qualifier("userServiceImpl")
     private UserService userService;
 
-    // @RequestMapping注解，指定访问路径。
-    // value属性，指定访问路径, method属性，指定访问方式。
-//    @RequestMapping(value = "/alluser", method = RequestMethod.GET)
-//    public ModelAndView getAllUser() {
-//        List<User> userResult = userService.selectAll();
-//        ModelAndView mav = new ModelAndView();  // ModelAndView对象，用于存放数据和视图。数据就是查询到的用户信息，视图就是all_user.jsp
-//        mav.setViewName("all_user");    // 指定视图为all_user.jsp。程序会去src/main/webapp/WEB-INF/jsp/目录下查找all_user.jsp文件。
-//                                        // 至于为什么是这个目录，是因为在application.properties文件中配置了spring.mvc.view.prefix=/WEB-INF/jsp/，spring.mvc.view.suffix=.jsp
-//        mav.addObject("users", userResult); // 将查询到的用户信息存放到ModelAndView对象中。让Spring将其传递到all_user.jsp中，在all_user.jsp中可以通过${users}获取到。
-//        return mav;
-//    }
     @Autowired
     @Qualifier("todoServiceImpl")
     private TodoService todoService;
@@ -99,6 +89,17 @@ public class UserController {
             System.out.println("登录失败");
         }
         return mav;
+    }
+
+    @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+    public ModelAndView editUser(@RequestParam("username") String username,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("confirm_password") String confirmPassword,
+                                 HttpServletRequest request) {
+        if (password.equals(confirmPassword)) {
+            userService.editPassword((Integer) request.getSession().getAttribute("userId"),  password);
+        }
+        return new ModelAndView("redirect:/todo");
     }
 
 }

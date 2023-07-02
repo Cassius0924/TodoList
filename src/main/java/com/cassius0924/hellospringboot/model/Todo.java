@@ -63,9 +63,7 @@ public class Todo {
         this.detail = detail;
     }
 
-    public Timestamp getTime() {
-        return time;
-    }
+    public Timestamp getTime() {return time;}
 
     public void setTime(Timestamp time) {
         this.time = time;
